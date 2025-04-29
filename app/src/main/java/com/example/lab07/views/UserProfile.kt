@@ -1,4 +1,4 @@
-package com.example.lab07.componentes
+package com.example.lab07.views
 
 
 import androidx.compose.foundation.layout.*

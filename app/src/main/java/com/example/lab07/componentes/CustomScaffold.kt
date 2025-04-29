@@ -4,6 +4,9 @@ package com.example.lab07.componentes
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Build
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Search
@@ -50,11 +53,37 @@ fun CustomTopBar(navController: NavController) {
 @Composable
 fun CustomBottomBar() {
     BottomAppBar {
-        IconButton(onClick = { /* Acción para botón inferior */ }) {
-            Icon(imageVector = Icons.Default.Home, contentDescription = "Inicio")
+        // Usamos Row para distribuir los iconos de forma uniforme
+        Row(
+            horizontalArrangement = Arrangement.SpaceEvenly, // O Arrangement.SpaceBetween
+            modifier = Modifier.fillMaxWidth() // Para que ocupe todo el ancho de la pantalla
+        ) {
+            IconButton(onClick = { print("Build") }) {
+                Icon(Icons.Filled.Build, contentDescription = "Build description")
+            }
+            IconButton(onClick = { print("Menu") }) {
+                Icon(
+                    Icons.Filled.Menu,
+                    contentDescription = "Menu description",
+                )
+            }
+            IconButton(onClick = { print("Favorite") }) {
+                Icon(
+                    Icons.Filled.Favorite,
+                    contentDescription = "Favorite description",
+                )
+            }
+            IconButton(onClick = { print("Delete") }) {
+                Icon(
+                    Icons.Filled.Delete,
+                    contentDescription = "Delete description",
+                )
+            }
         }
     }
 }
+
+
 
 @Composable
 fun CustomFAB() {
