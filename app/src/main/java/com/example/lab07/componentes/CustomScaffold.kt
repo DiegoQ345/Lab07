@@ -9,19 +9,22 @@ import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.outlined.AccountCircle
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 
 @Composable
 fun CustomScaffold(navController: NavController) {
     Scaffold(
         topBar = { CustomTopBar(navController) },
-        bottomBar = { CustomBottomBar() },
+        bottomBar = { CustomBottomBar(navController) },
         floatingActionButton = { CustomFAB() },
         content = { padding ->
             CustomContent(padding)
@@ -51,37 +54,33 @@ fun CustomTopBar(navController: NavController) {
 }
 
 @Composable
-fun CustomBottomBar() {
+fun CustomBottomBar(navController: NavController) {  // Cambié el tipo de NavHostController a NavController
     BottomAppBar {
-        // Usamos Row para distribuir los iconos de forma uniforme
         Row(
-            horizontalArrangement = Arrangement.SpaceEvenly, // O Arrangement.SpaceBetween
-            modifier = Modifier.fillMaxWidth() // Para que ocupe todo el ancho de la pantalla
+            horizontalArrangement = Arrangement.SpaceEvenly,
+            modifier = Modifier.fillMaxWidth()
         ) {
-            IconButton(onClick = { print("Build") }) {
-                Icon(Icons.Filled.Build, contentDescription = "Build description")
+            // Ícono para la pantalla de inicio
+            IconButton(onClick = { navController.navigate("home") }) {
+                Icon(Icons.Filled.Home, contentDescription = "Home")
             }
-            IconButton(onClick = { print("Menu") }) {
-                Icon(
-                    Icons.Filled.Menu,
-                    contentDescription = "Menu description",
-                )
+            // Ícono para la pantalla de perfil
+            IconButton(onClick = { navController.navigate("profile") }) {
+                Icon(Icons.Filled.Person, contentDescription = "Profile")
             }
-            IconButton(onClick = { print("Favorite") }) {
-                Icon(
-                    Icons.Filled.Favorite,
-                    contentDescription = "Favorite description",
-                )
+            // Ícono para la pantalla de configuración
+            IconButton(onClick = { navController.navigate("settings") }) {
+                Icon(Icons.Filled.Settings, contentDescription = "Settings")
             }
-            IconButton(onClick = { print("Delete") }) {
-                Icon(
-                    Icons.Filled.Delete,
-                    contentDescription = "Delete description",
-                )
+            // Ícono para la pantalla de favoritos
+            IconButton(onClick = { navController.navigate("favorites") }) {
+                Icon(Icons.Filled.Favorite, contentDescription = "Favorites")
             }
         }
     }
 }
+
+
 
 
 
