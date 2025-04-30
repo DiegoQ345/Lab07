@@ -15,22 +15,31 @@ import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.outlined.AccountCircle
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 
 @Composable
 fun CustomScaffold(navController: NavController) {
+    // Estado del contador
+    var counter by remember { mutableStateOf(0) }
+
     Scaffold(
         topBar = { CustomTopBar(navController) },
         bottomBar = { CustomBottomBar(navController) },
-        floatingActionButton = { CustomFAB() },
+        floatingActionButton = { CustomFAB { counter++ } },
         content = { padding ->
-            CustomContent(padding)
+            CustomContent(padding, counter)
         }
     )
 }
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -85,17 +94,29 @@ fun CustomBottomBar(navController: NavController) {  // Cambié el tipo de NavHo
 
 
 @Composable
-fun CustomFAB() {
-    FloatingActionButton(onClick = { /* Acción del FAB */ }) {
-        Icon(imageVector = Icons.Default.Add, contentDescription = "Añadir")
+fun CustomFAB(onClick: () -> Unit) {
+    FloatingActionButton(onClick = onClick) {
+        Text(
+            fontSize = 24.sp,
+            text = "+"
+        )
     }
 }
 
+
 @Composable
-fun CustomContent(padding: PaddingValues) {
-    Column(modifier = Modifier
-        .padding(padding)
-        .padding(16.dp)) {
-        Text("Este es el contenido principal.")
+fun CustomContent(padding: PaddingValues, counter: Int) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(padding)
+            .padding(16.dp) // espacio adicional interno
+    ) {
+        Text(text = "My app content")
+        Spacer(modifier = Modifier.height(16.dp))
+        //Implementacion del contador
+        Text(text = "Has presionado el botón $counter veces.")
     }
 }
+
+
